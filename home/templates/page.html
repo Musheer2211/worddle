@@ -251,19 +251,16 @@ document.getElementById("keyboard-form").addEventListener("submit", function(eve
     document.getElementById("input-box").value = '';
     console.log(JSON.stringify({ inputText }));
     fetch("", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
-        },
-        body: JSON.stringify({ inputText }),
-    })
-        .then(response => response.text())
-        .then(data => {
-            // console.log("Response from backend:", data);
-            // alert(data); // Display response
-        })
-        .catch(error => console.error("Error:", error));
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
+                },
+                body: JSON.stringify({ inputText }),
+            }).finally(() => {
+                // Reload the page after sending the request
+                window.location.reload();
+            });
 });
 {%if win == '0'%}
 document.addEventListener("DOMContentLoaded", function () {
